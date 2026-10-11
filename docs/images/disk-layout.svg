@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="title desc">
+  <title id="title">SimpleFS disk layout</title>
+  <desc id="desc">A 64-block image: superblock, inode bitmap, data bitmap and inode table in blocks 0 to 3, then a data region in blocks 4 to 63 whose first block is the root directory. Below, a lookup chain from a file name through its directory entry and inode to its data blocks.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1f2328; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
+    .h { font-size: 16px; font-weight: 600; }
+    .h2 { font-size: 14px; font-weight: 600; }
+    .seg-t { font-size: 15px; font-weight: 600; }
+    .seg-s { font-size: 12px; fill: #57606a; }
+    .tick { font-size: 11px; fill: #57606a; }
+    .cap { font-size: 12px; fill: #57606a; }
+  </style>
+
+  <rect x="0.5" y="0.5" width="959" height="419" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+
+  <text x="30" y="40" class="h">SimpleFS image: 64 blocks &#215; 4096 bytes = 262,144 bytes</text>
+
+  <g stroke-width="1.5">
+    <rect x="30"  y="64" width="120" height="64" fill="#efeaff" stroke="#6e56cf"/>
+    <rect x="150" y="64" width="120" height="64" fill="#e6f4ea" stroke="#1a7f37"/>
+    <rect x="270" y="64" width="120" height="64" fill="#e5f0ff" stroke="#0969da"/>
+    <rect x="390" y="64" width="120" height="64" fill="#fff1e5" stroke="#bc4c00"/>
+    <rect x="510" y="64" width="420" height="64" fill="#e3f6f8" stroke="#0b7285"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="90"  y="92"  class="seg-t">Superblock</text>
+    <text x="90"  y="112" class="seg-s">block 0</text>
+    <text x="210" y="92"  class="seg-t">Inode bitmap</text>
+    <text x="210" y="112" class="seg-s">block 1</text>
+    <text x="330" y="92"  class="seg-t">Data bitmap</text>
+    <text x="330" y="112" class="seg-s">block 2</text>
+    <text x="450" y="92"  class="seg-t">Inode table</text>
+    <text x="450" y="112" class="seg-s">block 3</text>
+    <text x="720" y="92"  class="seg-t">Data region</text>
+    <text x="720" y="112" class="seg-s">blocks 4&#8211;63 &#183; 60 blocks</text>
+  </g>
+
+  <text x="30"  y="146" class="tick">byte 0</text>
+  <text x="150" y="146" class="tick">4096</text>
+  <text x="270" y="146" class="tick">8192</text>
+  <text x="390" y="146" class="tick">12288</text>
+  <text x="510" y="146" class="tick">16384</text>
+  <text x="930" y="146" class="tick" text-anchor="end">262144</text>
+
+  <path d="M720 152 L720 178" stroke="#57606a" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="732" y="170" class="cap">zoom in</text>
+
+  <text x="30" y="192" class="h2">Inside the data region</text>
+  <g stroke-width="1.5">
+    <rect x="30"  y="204" width="240" height="50" fill="#ffeff7" stroke="#bf3989"/>
+    <rect x="270" y="204" width="140" height="50" fill="#e3f6f8" stroke="#0b7285"/>
+    <rect x="410" y="204" width="140" height="50" fill="#e3f6f8" stroke="#0b7285"/>
+    <rect x="550" y="204" width="140" height="50" fill="#e3f6f8" stroke="#0b7285"/>
+    <rect x="690" y="204" width="80"  height="50" fill="none" stroke="#8c959f" stroke-dasharray="4 4"/>
+    <rect x="770" y="204" width="160" height="50" fill="#e3f6f8" stroke="#0b7285"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="150" y="226" class="seg-t">Block 4 &#183; root directory</text>
+    <text x="150" y="244" class="seg-s">"." and ".." + one 64 B entry per file</text>
+    <text x="340" y="226" class="seg-t">Block 5</text>
+    <text x="340" y="244" class="seg-s">file data</text>
+    <text x="480" y="226" class="seg-t">Block 6</text>
+    <text x="480" y="244" class="seg-s">file data</text>
+    <text x="620" y="226" class="seg-t">Block 7</text>
+    <text x="620" y="244" class="seg-s">file data</text>
+    <text x="730" y="234" class="seg-t">&#8230;</text>
+    <text x="850" y="226" class="seg-t">Block 63</text>
+    <text x="850" y="244" class="seg-s">file data</text>
+  </g>
+
+  <text x="30" y="300" class="h2">Finding a file: name &#8594; directory entry &#8594; inode &#8594; data blocks <tspan class="cap" font-weight="400">(example: a 5000-byte file)</tspan></text>
+  <g stroke-width="1.5" fill="#ffffff" stroke="#8c959f">
+    <rect x="30"  y="318" width="150" height="80" rx="6"/>
+    <rect x="215" y="318" width="215" height="80" rx="6"/>
+    <rect x="465" y="318" width="225" height="80" rx="6"/>
+    <rect x="725" y="318" width="205" height="80" rx="6"/>
+  </g>
+  <g stroke="#57606a" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M182 358 L213 358"/>
+    <path d="M432 358 L463 358"/>
+    <path d="M692 358 L723 358"/>
+  </g>
+  <text x="44"  y="342" class="cap">You type</text>
+  <text x="44"  y="368" class="mono">notes.bin</text>
+  <text x="229" y="342" class="cap">Directory entry (block 4)</text>
+  <text x="229" y="364" class="mono">inode_no = 2</text>
+  <text x="229" y="384" class="mono">name     = notes.bin</text>
+  <text x="479" y="342" class="cap">Inode 2 (block 3, offset 128)</text>
+  <text x="479" y="364" class="mono">size   = 5000</text>
+  <text x="479" y="384" class="mono">direct = [5, 6, 0]</text>
+  <text x="739" y="342" class="cap">Data blocks</text>
+  <text x="739" y="364" class="mono">block 5: 4096 B</text>
+  <text x="739" y="384" class="mono">block 6: 904 B + zeros</text>
+</svg>
