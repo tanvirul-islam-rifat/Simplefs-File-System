@@ -164,8 +164,7 @@ The submitted programs were already correct: for every scenario tried (all size 
 
 ## Authors
 
-**Md. Tanvirul Islam Rifat**: `simplefs_builder.c` (superblock, bitmap formatting, root inode, `.` / `..` entries), the original README, and the post-course tooling, tests and documentation in this repository.
+**Md. Tanvirul Islam Rifat**:
 - **GitHub:** [@tanvirul-islam-rifat](https://github.com/tanvirul-islam-rifat)
 - **LinkedIn:** [Tanvirul Islam Rifat](https://www.linkedin.com/in/tanvirul-islam-rifat)
 
-**Mourika Nigar Mouny**: original `simplefs_adder.c` (first-fit inode and block search, data copy loop, directory-entry and root-size updates) and hex-dump testing in the course submission.
